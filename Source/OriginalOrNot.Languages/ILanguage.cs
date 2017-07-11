@@ -3,8 +3,9 @@
 namespace OriginalOrNot.Languages
 {
     using System.Collections.Generic;
+    using System.Collections.Concurrent;
     public interface ILanguage
     {
-        ISet<string> GetExcludedWordsForComparison();
+        ConcurrentDictionary<string,int> GetExcludedWordsForComparison();
     }
 }

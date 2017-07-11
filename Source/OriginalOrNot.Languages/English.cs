@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace OriginalOrNot.Languages
 {
     public class English : ILanguage
     {
-        public ISet<string> GetExcludedWordsForComparison()
+        public ConcurrentDictionary<string, int> GetExcludedWordsForComparison()
         {
-            throw new NotImplementedException();
+            var concurentDictionary = new ConcurrentDictionary<string, int>()
+            { };
+            return concurentDictionary;
         }
     }
 }

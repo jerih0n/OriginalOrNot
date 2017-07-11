@@ -9,7 +9,7 @@
     using System.Threading.Tasks;
     using System.Collections.Concurrent;
     using Novacode;
-
+    using OriginalOrNot.Languages;
     public class Engine
     {
         private const int _standartFontSize = 12;
@@ -17,6 +17,7 @@
         private ConcurrentDictionary<string, int> _internalReferentTextCollection;       
         private const int _expectedConcurancyLevel = 8;
         private string[] _comparisonWordsCollection;
+        private int _totalWordsCount = 0;
         public Engine()
         {
            
@@ -30,14 +31,46 @@
             switch(format)
             {
                 case FileFormat.TextFile:
-                    totalWord = this.LoadTextFile(filePath);
+                    totalWord = this.LoadReferentTextFromTxtFile(filePath);
                     return totalWord;
                 case FileFormat.DocXFormat:
-                    totalWord =  this.LoadDocXFile(filePath);
+                    totalWord =  this.LoadReferentTextFromDocXFile(filePath);
                     return totalWord;
                 default:
                     return totalWord;
             }
+        }
+        public int LoadComparisonText(string filePath,FileFormat format)
+        {
+            int totalWordsToCompare = 0;
+            switch(format)
+            {
+                case FileFormat.TextFile:
+                    totalWordsToCompare = this.LoadComparisonTextFromTxtFile(filePath);
+                    return totalWordsToCompare;
+                case FileFormat.DocXFormat:
+                    totalWordsToCompare = this.LoadComparisonTextFormDocXFile(filePath);
+                    return totalWordsToCompare;
+                default:
+                    return totalWordsToCompare;
+
+            }
+        }
+        /// <summary>
+        /// Perform compare between two text and return the percentage of equal words.
+        /// </summary>
+        /// <returns></returns>
+        public double CompareFiles(Language language)
+        {
+            var lanuageFactory = new LanguageFactory();
+            var excludedWords = lanuageFactory.GetLanguage(language).GetExcludedWordsForComparison();
+            if(this._comparisonWordsCollection == null || this._internalReferentTextCollection == null)
+            {
+                throw new InvalidOperationException("One or more file is not added, and comparison cannot happened");
+            }
+            int equalWords = this.CompareAndGetNumberOfEqualWord(excludedWords);
+            double percents = (equalWords / (double)this._totalWordsCount) * 100d;
+            return percents;
         }
         /// <summary>
         /// Calculate the app
@@ -46,7 +79,7 @@
         /// <param name="fontsSize"></param>
         /// <returns></returns>
         
-        private  int LoadTextFile(string filePath)
+        private  int LoadReferentTextFromTxtFile(string filePath)
         {
             using(var reader = new StreamReader(filePath))
             {
@@ -66,7 +99,8 @@
                     }
                      
                  });
-                return allWords.Length;
+                this._totalWordsCount = allWords.Length;
+                return this._totalWordsCount;
             }
         }
         /// <summary>
@@ -74,7 +108,7 @@
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        private int LoadDocXFile(string filePath)
+        private int LoadReferentTextFromDocXFile(string filePath)
         {
             using(var doc = DocX.Load(filePath))
             {
@@ -91,9 +125,40 @@
                          this._internalReferentTextCollection.AddOrUpdate(word, 1, (key, value) => value++);
                      }
                  });
+                this._totalWordsCount = allWords.Length;
+                return this._totalWordsCount;
+            }
+        }
+        private int LoadComparisonTextFromTxtFile(string filePath)
+        {
+            using(var reader = new StreamReader(filePath))
+            {
+                this._comparisonWordsCollection = reader.ReadToEnd()
+                     .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 return this._comparisonWordsCollection.Length;
             }
-            
+        }
+        private int LoadComparisonTextFormDocXFile(string filePath)
+        {
+            using(var reader = DocX.Load(filePath))
+            {
+                this._comparisonWordsCollection = reader.Text
+                       .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                return this._comparisonWordsCollection.Length;
+            }
+        }
+        private int CompareAndGetNumberOfEqualWord(ConcurrentDictionary<string,int> excludedWords)
+        {
+            int equalWords = 0;
+            Parallel.ForEach(this._comparisonWordsCollection, word =>
+            {
+                if (this._internalReferentTextCollection.ContainsKey(word)
+                && ! excludedWords.ContainsKey(word))
+                {
+                    equalWords++;
+                }
+            });
+            return equalWords;
         }
         
 
