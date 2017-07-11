@@ -1,0 +1,2 @@
+# OriginalOrNot
+Text comparison software
