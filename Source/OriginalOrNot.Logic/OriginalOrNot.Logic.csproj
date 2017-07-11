@@ -47,6 +47,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OriginalOrNot.Languages\OriginalOrNot.Languages.csproj">
+      <Project>{83a1c13e-774c-4f79-ba15-3f61f619f033}</Project>
+      <Name>OriginalOrNot.Languages</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OriginalOrNot.Shared\OriginalOrNot.Shared.csproj">
       <Project>{c93733c5-a3b4-4532-bf43-d4afca9675a7}</Project>
       <Name>OriginalOrNot.Shared</Name>

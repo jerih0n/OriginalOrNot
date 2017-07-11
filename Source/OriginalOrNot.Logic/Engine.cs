@@ -16,7 +16,7 @@
         private const int _approximateWordsPerPageWithDefaultFont = 300;
         private ConcurrentDictionary<string, int> _internalReferentTextCollection;       
         private const int _expectedConcurancyLevel = 8;
-        private string[] _comparisonWordsCollection;
+        private ConcurrentDictionary<string, int> _comparisonWordsCollection;
         private int _totalWordsCount = 0;
         public Engine()
         {
@@ -133,29 +133,39 @@
         {
             using(var reader = new StreamReader(filePath))
             {
-                this._comparisonWordsCollection = reader.ReadToEnd()
+                var allWords = reader.ReadToEnd()
                      .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                return this._comparisonWordsCollection.Length;
+                this._comparisonWordsCollection = new ConcurrentDictionary<string, int>(_expectedConcurancyLevel, allWords.Length);
+                Parallel.ForEach(allWords, word =>
+                 {
+                     this._comparisonWordsCollection.AddOrUpdate(word, 1, (key, value) => value++);
+                 });
+                return allWords.Length;
             }
         }
         private int LoadComparisonTextFormDocXFile(string filePath)
         {
             using(var reader = DocX.Load(filePath))
             {
-                this._comparisonWordsCollection = reader.Text
+                var allWords = reader.Text
                        .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                return this._comparisonWordsCollection.Length;
+                this._comparisonWordsCollection = new ConcurrentDictionary<string, int>(_expectedConcurancyLevel, allWords.Length);
+                Parallel.ForEach(allWords, word =>
+                {
+                    this._comparisonWordsCollection.AddOrUpdate(word, 1, (key, value) => value++);
+                });
+                return allWords.Length;
             }
         }
         private int CompareAndGetNumberOfEqualWord(ConcurrentDictionary<string,int> excludedWords)
         {
             int equalWords = 0;
-            Parallel.ForEach(this._comparisonWordsCollection, word =>
+            Parallel.ForEach(this._comparisonWordsCollection, pair =>
             {
-                if (this._internalReferentTextCollection.ContainsKey(word)
-                && ! excludedWords.ContainsKey(word))
+                if (this._internalReferentTextCollection.ContainsKey(pair.Key)
+                && ! excludedWords.ContainsKey(pair.Key))
                 {
-                    equalWords++;
+                    equalWords += this._internalReferentTextCollection[pair.Key];
                 }
             });
             return equalWords;

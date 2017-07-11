@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using OriginalOrNot.Logic;
 using OriginalOrNot.Shared;
+using System.Diagnostics;
 namespace OriginalOrNot.UI
 {
     /// <summary>
@@ -25,12 +26,6 @@ namespace OriginalOrNot.UI
         {
             InitializeComponent();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            string testPath = @"C:\Users\DB\Desktop\test.docx";
-            var engine = new Engine();
-            var result = engine.LoadReferentText(testPath, FileFormat.DocXFormat);
-        }
+        
     }
 }
