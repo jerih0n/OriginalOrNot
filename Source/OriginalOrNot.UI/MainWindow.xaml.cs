@@ -29,15 +29,19 @@ namespace OriginalOrNot.UI
             this._engine = new Engine();
 
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            string refPath = @"C:\Users\DB\Desktop\test.txt";
-            string comparPath = @"C:\Users\DB\Desktop\test.docx";
-            string path = "C:\\Users\\DB\\Desktop";
-            int result = this._engine.LoadReferentText(refPath, FileFormat.TextFile);
-            int result2 = this._engine.LoadComparisonText(comparPath, FileFormat.DocXFormat);
-            double result3 = this._engine.CompareAndIntersectTheTwoTexts(Shared.Language.English, path);
+            var pat1 = @"C:\Users\DB\Desktop\test.txt";
+            var pat2 = @"C:\Users\DB\Desktop\test.docx";
+            var pat3 = @"C:\Users\DB\Desktop";
+            Stopwatch wathc = new Stopwatch();
+            wathc.Start();
+            var result1 = this._engine.LoadReferentText(pat1, FileFormat.TextFile);
+            var result2 = this._engine.LoadComparisonText(pat2, FileFormat.DocXFormat);
+            var result3 = this._engine.CompareAndIntersectTheTwoTexts(Shared.Language.English, pat3);
+            wathc.Stop();
+            MessageBox.Show($"Time : {wathc.Elapsed}");
+            
 
         }
     }

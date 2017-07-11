@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BA5AFEAD-377C-4317-82FD-A2E40F320AA7}</ProjectGuid>
+    <ProjectGuid>{E12F76F4-F3C1-4B21-9C93-722FE7281F59}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OriginalOrNot.Logic</RootNamespace>
-    <AssemblyName>OriginalOrNot.Logic</AssemblyName>
+    <RootNamespace>OriginalOrNot.FileTypesClasses</RootNamespace>
+    <AssemblyName>OriginalOrNot.FileTypesClasses</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -43,18 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Engine.cs" />
+    <Compile Include="DocXFormatClass.cs" />
+    <Compile Include="FileFactory.cs" />
+    <Compile Include="ITextTypeFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TxtFormatClass.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OriginalOrNot.FileTypesClasses\OriginalOrNot.FileTypesClasses.csproj">
-      <Project>{e12f76f4-f3c1-4b21-9c93-722fe7281f59}</Project>
-      <Name>OriginalOrNot.FileTypesClasses</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OriginalOrNot.Languages\OriginalOrNot.Languages.csproj">
-      <Project>{83a1c13e-774c-4f79-ba15-3f61f619f033}</Project>
-      <Name>OriginalOrNot.Languages</Name>
-    </ProjectReference>
     <ProjectReference Include="..\OriginalOrNot.Shared\OriginalOrNot.Shared.csproj">
       <Project>{c93733c5-a3b4-4532-bf43-d4afca9675a7}</Project>
       <Name>OriginalOrNot.Shared</Name>

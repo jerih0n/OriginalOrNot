@@ -10,6 +10,8 @@
     using System.Collections.Concurrent;
     using Novacode;
     using OriginalOrNot.Languages;
+    using OriginalOrNot.FileTypesClasses;
+
     public class Engine
     {
         private const int _standartFontSize = 12;
@@ -26,34 +28,24 @@
         /// </summary>
         public int LoadReferentText(string filePath,FileFormat format)
         {
-            int totalWord = 0;
-            switch(format)
-            {
-                case FileFormat.TextFile:
-                    totalWord = this.LoadReferentTextFromTxtFile(filePath);
-                    return totalWord;
-                case FileFormat.DocXFormat:
-                    totalWord =  this.LoadReferentTextFromDocXFile(filePath);
-                    return totalWord;
-                default:
-                    return totalWord;
-            }
+            var fileType = FileFactory.GetFileClass(format);
+            var tupleResult = fileType.LoadReferentText(filePath, _expectedConcurancyLevel);
+            this._internalReferentTextCollection = tupleResult.Item1;
+            this._totalWordsCount = tupleResult.Item2;
+            return tupleResult.Item2;
         }
+        /// <summary>
+        /// Load the comparison words. Return the count of all words
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="format"></param>
+        /// <returns></returns>
         public int LoadComparisonText(string filePath,FileFormat format)
         {
-            int totalWordsToCompare = 0;
-            switch(format)
-            {
-                case FileFormat.TextFile:
-                    totalWordsToCompare = this.LoadComparisonTextFromTxtFile(filePath);
-                    return totalWordsToCompare;
-                case FileFormat.DocXFormat:
-                    totalWordsToCompare = this.LoadComparisonTextFormDocXFile(filePath);
-                    return totalWordsToCompare;
-                default:
-                    return totalWordsToCompare;
-
-            }
+            var fileType = FileFactory.GetFileClass(format);
+            var tupleResult = fileType.LoadComparisonText(filePath);
+            this._comparisonWordsCollection = tupleResult.Item1;
+            return tupleResult.Item2;
         }
         /// <summary>
         /// Perform compare between two text and return the percentage of equal words.
@@ -90,83 +82,7 @@
             double percents = (equalWords / (double)this._totalWordsCount) * 100d;
             return percents;
         }
-        /// <summary>
-        /// Calculate the app
-        /// </summary>
-        /// <param name="documentPagesCount"></param>
-        /// <param name="fontsSize"></param>
-        /// <returns></returns>
         
-        private  int LoadReferentTextFromTxtFile(string filePath)
-        {
-            using(var reader = new StreamReader(filePath))
-            {
-                var allWords = reader.ReadToEnd()
-                    .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                this._internalReferentTextCollection = new ConcurrentDictionary<string, int>(_expectedConcurancyLevel, allWords.Length);
-                Parallel.ForEach(allWords, word =>
-                 {
-                    
-                    if (this._internalReferentTextCollection.ContainsKey(word))
-                    {
-                        this._internalReferentTextCollection[word]++;
-                    }
-                    else
-                    {
-                        this._internalReferentTextCollection.AddOrUpdate(word, 1, (key, value) => value++);
-                    }
-                     
-                 });
-                this._totalWordsCount = allWords.Length;
-                return this._totalWordsCount;
-            }
-        }
-        /// <summary>
-        /// Load referent words from a DocX file
-        /// </summary>
-        /// <param name="filePath"></param>
-        /// <returns></returns>
-        private int LoadReferentTextFromDocXFile(string filePath)
-        {
-            using(var doc = DocX.Load(filePath))
-            {
-                var allWords = doc.Text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                this._internalReferentTextCollection = new ConcurrentDictionary<string, int>(_expectedConcurancyLevel, allWords.Length);
-                Parallel.ForEach(allWords, word =>
-                 {
-                     if(this._internalReferentTextCollection.ContainsKey(word))
-                     {
-                         this._internalReferentTextCollection[word]++;
-                     }
-                     else
-                     {
-                         this._internalReferentTextCollection.AddOrUpdate(word, 1, (key, value) => value++);
-                     }
-                 });
-                this._totalWordsCount = allWords.Length;
-                return this._totalWordsCount;
-            }
-        }
-        private int LoadComparisonTextFromTxtFile(string filePath)
-        {
-            using(var reader = new StreamReader(filePath))
-            {
-                var allWords = reader.ReadToEnd()
-                     .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                this._comparisonWordsCollection = allWords;               
-                return allWords.Length;
-            }
-        }
-        private int LoadComparisonTextFormDocXFile(string filePath)
-        {
-            using(var reader = DocX.Load(filePath))
-            {
-                var allWords = reader.Text
-                       .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                this._comparisonWordsCollection = allWords;
-                return allWords.Length;
-            }
-        }
         private int CompareAndGetNumberOfEqualWord(ConcurrentDictionary<string,int> excludedWords)
         {
             int equalWords = 0;
@@ -193,6 +109,7 @@
             int  wordsCountForThisParagraf = 0;
             using (var docX = DocX.Create(newFilePath))
             {
+                
                 Parallel.ForEach(this._comparisonWordsCollection, word =>
                 {
                     if (this._internalReferentTextCollection.ContainsKey(word)
@@ -200,8 +117,10 @@
                     {
                         if (this._internalReferentTextCollection[word] > 0)
                         {
-                            lock(this._comparisonWordsCollection)
+                            var lockingObject = new Object();
+                            lock (lockingObject)
                             {
+                                
                                 equalWords++;
                                 this._internalReferentTextCollection[word]--;
                                 sb.Append(word);

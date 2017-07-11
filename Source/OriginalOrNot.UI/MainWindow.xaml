@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:OriginalOrNot.UI"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Button Content="Button" HorizontalAlignment="Left" Margin="292,122,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+    <Button Content="Button" HorizontalAlignment="Left" Margin="312,78,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+
 
 </Window>
+
