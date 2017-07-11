@@ -37,7 +37,7 @@ namespace OriginalOrNot.UI
             Stopwatch wathc = new Stopwatch();
             wathc.Start();
             var result1 = this._engine.LoadReferentText(pat1, FileFormat.TextFile);
-            var result2 = this._engine.LoadComparisonText(pat2, FileFormat.DocXFormat);
+            var result2 = this._engine.LoadComparisonText(pat1, FileFormat.TextFile);
             var result3 = this._engine.CompareAndIntersectTheTwoTexts(Shared.Language.English, pat3);
             wathc.Stop();
             MessageBox.Show($"Time : {wathc.Elapsed}");

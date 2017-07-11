@@ -109,7 +109,6 @@
             int  wordsCountForThisParagraf = 0;
             using (var docX = DocX.Create(newFilePath))
             {
-                
                 Parallel.ForEach(this._comparisonWordsCollection, word =>
                 {
                     if (this._internalReferentTextCollection.ContainsKey(word)
@@ -117,10 +116,9 @@
                     {
                         if (this._internalReferentTextCollection[word] > 0)
                         {
-                            var lockingObject = new Object();
-                            lock (lockingObject)
+                            lock(docX)
                             {
-                                
+                                var lockingObject = new Object();
                                 equalWords++;
                                 this._internalReferentTextCollection[word]--;
                                 sb.Append(word);
@@ -128,10 +126,12 @@
                                 wordsCountForThisParagraf++;
                                 if (wordsCountForThisParagraf >= wordsCountPerParagraph)
                                 {
+
                                     docX.InsertParagraph(sb.ToString());
                                     sb.Clear();
                                     wordsCountForThisParagraf = 0;
                                 }
+
                             }
                         }
                     }
