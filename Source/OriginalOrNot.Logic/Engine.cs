@@ -65,6 +65,10 @@
                 return allWords.Length;
             }
         }
+        private int LoadDocXFile(string filePath)
+        {
+            return 0;
+        }
 
     }
 }
