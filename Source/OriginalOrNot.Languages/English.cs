@@ -8,8 +8,8 @@ namespace OriginalOrNot.Languages
     {
         public ConcurrentDictionary<string, int> GetExcludedWordsForComparison()
         {
-            var concurentDictionary = new ConcurrentDictionary<string, int>()
-            { };
+            var concurentDictionary = new ConcurrentDictionary<string, int>();
+            
             return concurentDictionary;
         }
     }

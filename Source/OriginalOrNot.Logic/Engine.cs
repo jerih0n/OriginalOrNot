@@ -16,11 +16,10 @@
         private const int _approximateWordsPerPageWithDefaultFont = 300;
         private ConcurrentDictionary<string, int> _internalReferentTextCollection;       
         private const int _expectedConcurancyLevel = 8;
-        private ConcurrentDictionary<string, int> _comparisonWordsCollection;
+        private string[] _comparisonWordsCollection;
         private int _totalWordsCount = 0;
         public Engine()
         {
-           
         }
         /// <summary>
         /// Load the text, and store all words. Return the total amount of words in the text
@@ -69,6 +68,25 @@
                 throw new InvalidOperationException("One or more file is not added, and comparison cannot happened");
             }
             int equalWords = this.CompareAndGetNumberOfEqualWord(excludedWords);
+            double percents = (equalWords / (double)this._totalWordsCount) * 100d;
+            return percents;
+        }
+        /// <summary>
+        /// Perform compare between two text and return the percentage of equal words. Creates a .docx file with all equal words
+        /// in both texts and seve it in the given path
+        /// </summary>
+        /// <param name="language"></param>
+        /// <param name="intersectionFilePath"></param>
+        /// <returns></returns>
+        public double CompareAndIntersectTheTwoTexts(Language language, string intersectionFilePath)
+        {
+            var lanuageFactory = new LanguageFactory();
+            var excludedWords = lanuageFactory.GetLanguage(language).GetExcludedWordsForComparison();
+            if (this._comparisonWordsCollection == null || this._internalReferentTextCollection == null)
+            {
+                throw new InvalidOperationException("One or more file is not added, and comparison cannot happened");
+            }
+            int equalWords = this.CompareAndIntersectTheTwoSetsInNewFile(excludedWords,intersectionFilePath);
             double percents = (equalWords / (double)this._totalWordsCount) * 100d;
             return percents;
         }
@@ -135,11 +153,7 @@
             {
                 var allWords = reader.ReadToEnd()
                      .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                this._comparisonWordsCollection = new ConcurrentDictionary<string, int>(_expectedConcurancyLevel, allWords.Length);
-                Parallel.ForEach(allWords, word =>
-                 {
-                     this._comparisonWordsCollection.AddOrUpdate(word, 1, (key, value) => value++);
-                 });
+                this._comparisonWordsCollection = allWords;               
                 return allWords.Length;
             }
         }
@@ -149,26 +163,66 @@
             {
                 var allWords = reader.Text
                        .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                this._comparisonWordsCollection = new ConcurrentDictionary<string, int>(_expectedConcurancyLevel, allWords.Length);
-                Parallel.ForEach(allWords, word =>
-                {
-                    this._comparisonWordsCollection.AddOrUpdate(word, 1, (key, value) => value++);
-                });
+                this._comparisonWordsCollection = allWords;
                 return allWords.Length;
             }
         }
         private int CompareAndGetNumberOfEqualWord(ConcurrentDictionary<string,int> excludedWords)
         {
             int equalWords = 0;
-            Parallel.ForEach(this._comparisonWordsCollection, pair =>
+            Parallel.ForEach(this._comparisonWordsCollection, word =>
             {
-                if (this._internalReferentTextCollection.ContainsKey(pair.Key)
-                && ! excludedWords.ContainsKey(pair.Key))
+                if (this._internalReferentTextCollection.ContainsKey(word)
+                && ! excludedWords.ContainsKey(word))
                 {
-                    equalWords += this._internalReferentTextCollection[pair.Key];
+                    if(this._internalReferentTextCollection[word] > 0)
+                    {
+                        equalWords++;
+                        this._internalReferentTextCollection[word]--;
+                    }
                 }
             });
             return equalWords;
+        }
+        private int CompareAndIntersectTheTwoSetsInNewFile(ConcurrentDictionary<string, int> excludedWords, string newFilePath)
+        {
+            int equalWords = 0;
+            newFilePath += @"\EqualWords.docx";
+            StringBuilder sb = new StringBuilder();
+            const int  wordsCountPerParagraph = 15;
+            int  wordsCountForThisParagraf = 0;
+            using (var docX = DocX.Create(newFilePath))
+            {
+                Parallel.ForEach(this._comparisonWordsCollection, word =>
+                {
+                    if (this._internalReferentTextCollection.ContainsKey(word)
+                    && !excludedWords.ContainsKey(word))
+                    {
+                        if (this._internalReferentTextCollection[word] > 0)
+                        {
+                            lock(this._comparisonWordsCollection)
+                            {
+                                equalWords++;
+                                this._internalReferentTextCollection[word]--;
+                                sb.Append(word);
+                                sb.Append(" ");
+                                wordsCountForThisParagraf++;
+                                if (wordsCountForThisParagraf >= wordsCountPerParagraph)
+                                {
+                                    docX.InsertParagraph(sb.ToString());
+                                    sb.Clear();
+                                    wordsCountForThisParagraf = 0;
+                                }
+                            }
+                        }
+                    }
+                });
+                docX.Save();
+                return equalWords;
+            }
+            
+            
+            
         }
         
 

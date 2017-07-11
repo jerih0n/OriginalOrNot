@@ -22,10 +22,23 @@ namespace OriginalOrNot.UI
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Engine _engine;
         public MainWindow()
         {
             InitializeComponent();
+            this._engine = new Engine();
+
         }
-        
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string refPath = @"C:\Users\DB\Desktop\test.txt";
+            string comparPath = @"C:\Users\DB\Desktop\test.docx";
+            string path = "C:\\Users\\DB\\Desktop";
+            int result = this._engine.LoadReferentText(refPath, FileFormat.TextFile);
+            int result2 = this._engine.LoadComparisonText(comparPath, FileFormat.DocXFormat);
+            double result3 = this._engine.CompareAndIntersectTheTwoTexts(Shared.Language.English, path);
+
+        }
     }
 }
