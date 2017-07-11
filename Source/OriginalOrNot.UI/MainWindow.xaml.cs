@@ -12,7 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using OriginalOrNot.Logic;
+using OriginalOrNot.Shared;
 namespace OriginalOrNot.UI
 {
     /// <summary>
@@ -23,6 +24,13 @@ namespace OriginalOrNot.UI
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string testPath = @"C:\Users\DB\Desktop\test.txt";
+            var engine = new Engine();
+            var result = engine.LoadReferentText(testPath, FileFormat.TextFile);
         }
     }
 }

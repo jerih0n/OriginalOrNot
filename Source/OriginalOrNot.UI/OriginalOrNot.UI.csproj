@@ -94,6 +94,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OriginalOrNot.Languages\OriginalOrNot.Languages.csproj">
+      <Project>{83a1c13e-774c-4f79-ba15-3f61f619f033}</Project>
+      <Name>OriginalOrNot.Languages</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OriginalOrNot.Logic\OriginalOrNot.Logic.csproj">
       <Project>{ba5afead-377c-4317-82fd-a2e40f320aa7}</Project>
       <Name>OriginalOrNot.Logic</Name>
