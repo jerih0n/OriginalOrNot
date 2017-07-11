@@ -8,19 +8,17 @@
     using System.Threading;
     using System.Threading.Tasks;
     using System.Collections.Concurrent;
-
+    
     public class Engine
     {
         private const int _standartFontSize = 12;
         private const int _approximateWordsPerPageWithDefaultFont = 300;
         private ConcurrentDictionary<string, int> _internalReferentTextCollection;       
-        private int _approximateWordsCountInTheReferentText;
         private const int _expectedConcurancyLevel = 8;
         public Engine()
         {
            
         }
-        public int ApproximateReferentWordsCount { get { return this._approximateWordsCountInTheReferentText; } }
         /// <summary>
         /// Load the text, and store all words. Return the total amount of words in the text
         /// </summary>
@@ -67,6 +65,7 @@
         }
         private int LoadDocXFile(string filePath)
         {
+            
             return 0;
         }
 
