@@ -28,9 +28,9 @@ namespace OriginalOrNot.UI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string testPath = @"C:\Users\DB\Desktop\test.txt";
+            string testPath = @"C:\Users\DB\Desktop\test.docx";
             var engine = new Engine();
-            var result = engine.LoadReferentText(testPath, FileFormat.TextFile);
+            var result = engine.LoadReferentText(testPath, FileFormat.DocXFormat);
         }
     }
 }

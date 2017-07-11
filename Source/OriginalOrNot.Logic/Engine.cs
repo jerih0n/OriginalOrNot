@@ -8,13 +8,15 @@
     using System.Threading;
     using System.Threading.Tasks;
     using System.Collections.Concurrent;
-    
+    using Novacode;
+
     public class Engine
     {
         private const int _standartFontSize = 12;
         private const int _approximateWordsPerPageWithDefaultFont = 300;
         private ConcurrentDictionary<string, int> _internalReferentTextCollection;       
         private const int _expectedConcurancyLevel = 8;
+        private string[] _comparisonWordsCollection;
         public Engine()
         {
            
@@ -27,12 +29,15 @@
             int totalWord = 0;
             switch(format)
             {
-                case FileFormat.TextFile: this.LoadTextFile(filePath);
+                case FileFormat.TextFile:
+                    totalWord = this.LoadTextFile(filePath);
                     return totalWord;
                 case FileFormat.DocXFormat:
+                    totalWord =  this.LoadDocXFile(filePath);
+                    return totalWord;
+                default:
                     return totalWord;
             }
-            return 0;
         }
         /// <summary>
         /// Calculate the app
@@ -50,6 +55,33 @@
                 this._internalReferentTextCollection = new ConcurrentDictionary<string, int>(_expectedConcurancyLevel, allWords.Length);
                 Parallel.ForEach(allWords, word =>
                  {
+                    
+                    if (this._internalReferentTextCollection.ContainsKey(word))
+                    {
+                        this._internalReferentTextCollection[word]++;
+                    }
+                    else
+                    {
+                        this._internalReferentTextCollection.AddOrUpdate(word, 1, (key, value) => value++);
+                    }
+                     
+                 });
+                return allWords.Length;
+            }
+        }
+        /// <summary>
+        /// Load referent words from a DocX file
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        private int LoadDocXFile(string filePath)
+        {
+            using(var doc = DocX.Load(filePath))
+            {
+                var allWords = doc.Text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                this._internalReferentTextCollection = new ConcurrentDictionary<string, int>(_expectedConcurancyLevel, allWords.Length);
+                Parallel.ForEach(allWords, word =>
+                 {
                      if(this._internalReferentTextCollection.ContainsKey(word))
                      {
                          this._internalReferentTextCollection[word]++;
@@ -58,16 +90,12 @@
                      {
                          this._internalReferentTextCollection.AddOrUpdate(word, 1, (key, value) => value++);
                      }
-                     
                  });
-                return allWords.Length;
+                return this._comparisonWordsCollection.Length;
             }
-        }
-        private int LoadDocXFile(string filePath)
-        {
             
-            return 0;
         }
+        
 
     }
 }
