@@ -166,19 +166,28 @@
         private void compareButton_Click(object sender, RoutedEventArgs e)
         {
             double resultPercents = 0;
-            if(this._shouldPerformIntersect)
+            Stopwatch watch = new Stopwatch();
+            string elapsedSeconds = string.Empty;
+            if (this._shouldPerformIntersect)
             {
                 using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
                 {
                     dialog.ShowDialog();
+                    
                     var path = dialog.SelectedPath;
                     if(path != null && path != "")
                     {
+                        watch.Start();
                         resultPercents = this._engine.CompareAndIntersectTheTwoTexts(Shared.Language.English, path);
+                        watch.Stop();
+                        elapsedSeconds = watch.Elapsed.Milliseconds.ToString();
                     }
                     else
                     {
+                        watch.Start();
                         resultPercents = this._engine.CompareFiles(Shared.Language.English);
+                        watch.Stop();
+                        elapsedSeconds = watch.Elapsed.Milliseconds.ToString();
                     }
                     
                 }
@@ -201,6 +210,7 @@
                 this.percents.Foreground = Brushes.Red;
             }
             this.percents.Content = string.Format("{0:0.00} %", resultPercents);
+            this.timeElapsed.Content = $"Took {elapsedSeconds} milliseconds";
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)

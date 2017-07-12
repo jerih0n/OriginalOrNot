@@ -48,7 +48,7 @@
             <Button x:Name="compareButton" Content="Compare" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="142" Click="compareButton_Click" IsEnabled="False"/>
             <Label x:Name="coparisonLabel"  HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Width="530" Height="80"/>
             <Label Content="Equal: " HorizontalAlignment="Left" Margin="283,1,0,0" VerticalAlignment="Top" Width="47"/>
-            <Label x:Name="percents"  HorizontalAlignment="Left" Margin="330,10,0,0" VerticalAlignment="Top" Width="89"/>
+            <Label x:Name="percents"  HorizontalAlignment="Left" Margin="322,1,0,0" VerticalAlignment="Top" Width="62"/>
             <Label Content="Author: Dimitur Botev" HorizontalAlignment="Left" Margin="0,107,0,0" VerticalAlignment="Top" Width="129"/>
             <TextBlock HorizontalAlignment="Left" Margin="126,110,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="17" Width="57">
                 <TextBlock.RenderTransform>
@@ -69,6 +69,8 @@
                     Here
                 </Hyperlink>
             </TextBlock>
+            <Label  x:Name="timeElapsed" HorizontalAlignment="Left" Margin="389,0,0,0" VerticalAlignment="Top" Width="129" Height="26" RenderTransformOrigin="0.605,0.474"/>
+
 
 
 
