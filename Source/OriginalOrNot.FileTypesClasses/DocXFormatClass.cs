@@ -15,6 +15,7 @@ namespace OriginalOrNot.FileTypesClasses
         {
             using (var reader = DocX.Load(path))
             {
+                
                 var allWords = reader.Text
                        .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 return new Tuple<string[], int>(allWords, allWords.Length);

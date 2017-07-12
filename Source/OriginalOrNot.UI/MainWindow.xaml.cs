@@ -53,6 +53,7 @@
             this._isComparisonFileLoaded = false;
             this._isReferentFileLoaded = false;
             this.refTextLoadedStatus.Content = _notLoaded;
+            this.comTextLoadedStatus.Content = _notLoaded;
         }
         private void refFilesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -94,6 +95,48 @@
             this.refTextImageV.Visibility = Visibility.Hidden;
             this.refTextImageX.Visibility = Visibility.Visible;
             this.refTextWordsCount.Content = "";
+        }
+
+        private void comFilesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var combboBox = sender as ComboBox;
+            var selectedIted = combboBox.SelectedValue as ComboBoxItem;
+            var value = selectedIted.Content;
+            if (value != null)
+            {
+                this._comparisonFileFormat = this._textHelper.GetFileFormat(value.ToString());
+            }
+        }
+
+        private void openComButton_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            var filer = this._textHelper.GetFileDialogFilter(this._comparisonFileFormat);
+            dialog.Filter = filer;
+            dialog.ShowDialog();
+            var filePath = dialog.FileName;
+            if (filePath != null && filePath != string.Empty)
+            {
+                var wordsCount = this._engine.LoadComparisonText(filePath, this._comparisonFileFormat);
+                //after loading making the UI changes
+                this._isComparisonFileLoaded = true;
+                //make red Invisible
+                this.comTextImageX.Visibility = Visibility.Hidden;
+                this.comTextImageV.Visibility = Visibility.Visible;
+                this.comTextLoadedStatus.Content = _loaded;
+                this.comTextWordsCount.Content = $"Total words: {wordsCount}";
+            }
+
+        }
+
+        private void comTextUnload_Click(object sender, RoutedEventArgs e)
+        {
+            this._engine.UnloadComparisonText();
+            this.comTextLoadedStatus.Content = _notLoaded;
+            this._isComparisonFileLoaded = false;
+            this.comTextImageV.Visibility = Visibility.Hidden;
+            this.comTextImageX.Visibility = Visibility.Visible;
+            this.comTextWordsCount.Content = "";
         }
     }
 }
