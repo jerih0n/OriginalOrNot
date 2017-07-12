@@ -46,16 +46,33 @@
         <Grid x:Name="lowerGrid" HorizontalAlignment="Left" Height="139" Margin="0,181,0,0" VerticalAlignment="Top" Width="540">
             <CheckBox x:Name="intersectionOptionCheckbox" Content="Include Intersect" HorizontalAlignment="Left" Margin="166,6,0,0" VerticalAlignment="Top" Width="142" IsChecked="False" Checked="intersectionOptionCheckbox_Checked" Unchecked="intersectionOptionCheckbox_Unchecked"/>
             <Button x:Name="compareButton" Content="Compare" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="142" Click="compareButton_Click" IsEnabled="False"/>
-            <Label x:Name="coparisonLabel" Content="Label" HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Width="530" Height="80"/>
+            <Label x:Name="coparisonLabel"  HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Width="530" Height="80"/>
             <Label Content="Equal: " HorizontalAlignment="Left" Margin="283,1,0,0" VerticalAlignment="Top" Width="47"/>
             <Label x:Name="percents"  HorizontalAlignment="Left" Margin="330,10,0,0" VerticalAlignment="Top" Width="89"/>
+            <Label Content="Author: Dimitur Botev" HorizontalAlignment="Left" Margin="0,107,0,0" VerticalAlignment="Top" Width="129"/>
+            <TextBlock HorizontalAlignment="Left" Margin="126,110,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="17" Width="57">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-0.283"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+                <Hyperlink NavigateUri="https://www.linkedin.com/in/dimitur-botev-32919a119/" RequestNavigate="Hyperlink_RequestNavigate" FontSize="14" TextDecorations="">
+                    LinkedIn
+                </Hyperlink>
+            </TextBlock>
+            <Label Content="Project source code: " HorizontalAlignment="Left" Margin="284,107,0,0" VerticalAlignment="Top" Width="127"/>
+            <TextBlock HorizontalAlignment="Left" Margin="401,110,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="71"  >
+                <Hyperlink NavigateUri="https://github.com/jerih0n/OriginalOrNot" RequestNavigate="Hyperlink_RequestNavigate_1" TextDecorations="" FontSize="14">
+                    Here
+                </Hyperlink>
+            </TextBlock>
+
+
 
         </Grid>
-
-
-
-
-
     </Grid>
 </Window>
 

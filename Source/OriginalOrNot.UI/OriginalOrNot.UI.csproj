@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>plagiarism.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -113,6 +116,12 @@
   <ItemGroup>
     <Resource Include="Images\greenV.png" />
     <Resource Include="Images\redX.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\plagiarism.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="plagiarism.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
