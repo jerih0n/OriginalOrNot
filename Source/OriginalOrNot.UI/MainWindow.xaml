@@ -5,9 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OriginalOrNot.UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Button Content="Button" HorizontalAlignment="Left" Margin="312,78,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+        Title="MainWindow" 
+        Height="350" Width="550" MinHeight="350" MaxHeight="350"
+        MinWidth="550" MaxWidth="550"
+        Loaded="Window_Loaded">
+    <Grid HorizontalAlignment="Left" Height="320" VerticalAlignment="Top" Width="550">
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="195" VerticalAlignment="Top" Width="290" Margin="-15,-14,0,0">
+            <Grid x:Name="refSideGrid" HorizontalAlignment="Left" Height="182" Margin="19,12,-1,-1" VerticalAlignment="Top" Width="270">
+                <Label x:Name="refFileText" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="245"/>
+                <ComboBox HorizontalAlignment="Left" Margin="158,113,0,0" VerticalAlignment="Top" Width="97" SelectionChanged="ComboBox_SelectionChanged">
+                    <ComboBoxItem x:Name="refTxtDoctype" IsSelected="True">.txt File</ComboBoxItem>
+                    <ComboBoxItem x:Name="refDocxFile">.docx File</ComboBoxItem>
+                </ComboBox>
+                <Button x:Name="openRefButton" Content="Open File" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click"/>
+            </Grid>
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="195" VerticalAlignment="Top" Width="291" Margin="275,-14,-16,0">
+            <Label x:Name="comparisonText"  HorizontalAlignment="Left" Margin="-1,9,0,0" VerticalAlignment="Top" Width="245" />
+        </Border>
+        
 
 
+
+
+    </Grid>
 </Window>
 

@@ -15,34 +15,39 @@ using System.Windows.Shapes;
 using OriginalOrNot.Logic;
 using OriginalOrNot.Shared;
 using System.Diagnostics;
+using OriginalOrNot.UI.UILoader;
+
 namespace OriginalOrNot.UI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    
     public partial class MainWindow : Window
     {
         private Engine _engine;
+        private Loader _loader;
+        private FileFormat _refFileFormat;
+        private FileFormat _comparisonFileFormat;
         public MainWindow()
         {
             InitializeComponent();
             this._engine = new Engine();
-
-        }
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            var pat1 = @"C:\Users\DB\Desktop\test.txt";
-            var pat2 = @"C:\Users\DB\Desktop\test.docx";
-            var pat3 = @"C:\Users\DB\Desktop";
-            Stopwatch wathc = new Stopwatch();
-            wathc.Start();
-            var result1 = this._engine.LoadReferentText(pat1, FileFormat.TextFile);
-            var result2 = this._engine.LoadComparisonText(pat1, FileFormat.TextFile);
-            var result3 = this._engine.CompareAndIntersectTheTwoTexts(Shared.Language.English, pat3);
-            wathc.Stop();
-            MessageBox.Show($"Time : {wathc.Elapsed}");
+            this._loader = new Loader();
             
+        }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            this._loader.LoadLabels(this.refFileText, this.comparisonText);
+            //Default the file type is txt
+            this._refFileFormat = FileFormat.TextFile;
+            this._comparisonFileFormat = FileFormat.TextFile; 
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
         }
     }
 }
