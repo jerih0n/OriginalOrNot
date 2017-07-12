@@ -14,10 +14,10 @@
             <Grid x:Name="refSideGrid" HorizontalAlignment="Left" Height="182" Margin="19,12,-1,-1" VerticalAlignment="Top" Width="270">
                 <Label x:Name="refFileText" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="245"/>
                 <ComboBox HorizontalAlignment="Left" Margin="158,113,0,0" VerticalAlignment="Top" Width="97" SelectionChanged="ComboBox_SelectionChanged">
-                    <ComboBoxItem x:Name="refTxtDoctype" IsSelected="True">.txt File</ComboBoxItem>
-                    <ComboBoxItem x:Name="refDocxFile">.docx File</ComboBoxItem>
+                    <ComboBoxItem x:Name="TxtFile" IsSelected="True">.txt File</ComboBoxItem>
+                    <ComboBoxItem x:Name="DocxFile">.docx File</ComboBoxItem>
                 </ComboBox>
-                <Button x:Name="openRefButton" Content="Open File" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click"/>
+                <Button x:Name="openRefButton" Content="Open File" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top" Width="92" Click="openRefButton_Click" />
             </Grid>
         </Border>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="195" VerticalAlignment="Top" Width="291" Margin="275,-14,-16,0">
