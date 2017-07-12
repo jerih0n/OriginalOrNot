@@ -35,6 +35,7 @@
         private bool _isComparisonFileLoaded;
         private const string _loaded = "Loaded";
         private const string _notLoaded = "Not Loaded";
+        private bool _shouldPerformIntersect;
         public MainWindow()
         {
             InitializeComponent();
@@ -46,6 +47,7 @@
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this._loader.LoadLabels(this.refFileText, this.comparisonText);
+            this._loader.LoadComparisonExplanationLaber(this.coparisonLabel);
             this._textHelper = new TextTypeHelper();
             //Default the file type is txt
             this._refFileFormat = FileFormat.TextFile;
@@ -54,6 +56,7 @@
             this._isReferentFileLoaded = false;
             this.refTextLoadedStatus.Content = _notLoaded;
             this.comTextLoadedStatus.Content = _notLoaded;
+            this._shouldPerformIntersect = false;
         }
         private void refFilesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -86,6 +89,11 @@
                 this.refTextLoadedStatus.Content = _loaded;
                 this.refTextWordsCount.Content = $"Total words: {wordsCount}";
             }
+            if(this._isComparisonFileLoaded)
+            {
+                // both files are loaded, unlock the button
+                this.compareButton.IsEnabled = true;
+            }
         }
         private void refTextUnload_Click(object sender, RoutedEventArgs e)
         {
@@ -95,6 +103,7 @@
             this.refTextImageV.Visibility = Visibility.Hidden;
             this.refTextImageX.Visibility = Visibility.Visible;
             this.refTextWordsCount.Content = "";
+            this.compareButton.IsEnabled = false;
         }
 
         private void comFilesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -126,7 +135,11 @@
                 this.comTextLoadedStatus.Content = _loaded;
                 this.comTextWordsCount.Content = $"Total words: {wordsCount}";
             }
-
+            if(this._isReferentFileLoaded)
+            {
+                // both files are loaded, unlock the button
+                this.compareButton.IsEnabled = true;
+            }
         }
 
         private void comTextUnload_Click(object sender, RoutedEventArgs e)
@@ -137,6 +150,57 @@
             this.comTextImageV.Visibility = Visibility.Hidden;
             this.comTextImageX.Visibility = Visibility.Visible;
             this.comTextWordsCount.Content = "";
+            this.compareButton.IsEnabled = false;
+        }
+
+        private void intersectionOptionCheckbox_Checked(object sender, RoutedEventArgs e)
+        {
+            this._shouldPerformIntersect = true;
+        }
+
+        private void intersectionOptionCheckbox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            this._shouldPerformIntersect = false;
+        }
+
+        private void compareButton_Click(object sender, RoutedEventArgs e)
+        {
+            double resultPercents = 0;
+            if(this._shouldPerformIntersect)
+            {
+                using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+                {
+                    dialog.ShowDialog();
+                    var path = dialog.SelectedPath;
+                    if(path != null && path != "")
+                    {
+                        resultPercents = this._engine.CompareAndIntersectTheTwoTexts(Shared.Language.English, path);
+                    }
+                    else
+                    {
+                        resultPercents = this._engine.CompareFiles(Shared.Language.English);
+                    }
+                    
+                }
+
+            }
+            else
+            {
+                resultPercents = this._engine.CompareFiles(Shared.Language.English);
+            }
+            if (resultPercents <= 20)
+            {
+                this.percents.Foreground = Brushes.Green;
+            }
+            else if (resultPercents >= 20 && resultPercents <= 50)
+            {
+                this.percents.Foreground = Brushes.Yellow;
+            }
+            else
+            {
+                this.percents.Foreground = Brushes.Red;
+            }
+            this.percents.Content = string.Format("{0:0.00} %", resultPercents);
         }
     }
 }

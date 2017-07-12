@@ -28,21 +28,29 @@
 
         </Border>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="195" VerticalAlignment="Top" Width="291" Margin="275,-14,-16,0">
-            <Grid x:Name="comparisonGrid" HorizontalAlignment="Left" Height="182" Margin="19,12,-1,-1" VerticalAlignment="Top" Width="270">
-                <Label x:Name="comparisonText"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="245" Margin="-15,0,0,0" />
-                <ComboBox  x:Name="comFilesComboBox" HorizontalAlignment="Left" Margin="163,113,0,0" VerticalAlignment="Top" Width="73" SelectionChanged="comFilesComboBox_SelectionChanged">
+            <Grid x:Name="comparisonGrid" HorizontalAlignment="Left" Height="182" Margin="-1,12,0,-1" VerticalAlignment="Top" Width="270">
+                <Label x:Name="comparisonText"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="245" Margin="3,0,0,0" />
+                <ComboBox  x:Name="comFilesComboBox" HorizontalAlignment="Left" Margin="181,113,0,0" VerticalAlignment="Top" Width="73" SelectionChanged="comFilesComboBox_SelectionChanged">
                     <ComboBoxItem x:Name="TxtFileCom" IsSelected="True" Content=".txt File"></ComboBoxItem>
                     <ComboBoxItem x:Name="DocxFileCom" Content=".docx File"></ComboBoxItem>
                 </ComboBox>
-                <Button x:Name="openComButton" Content="Open File" HorizontalAlignment="Left" Margin="-4,113,0,0" VerticalAlignment="Top" Width="71"  Click="openComButton_Click"/>
-                <Image x:Name="comTextImageX" HorizontalAlignment="Left" Height="32" Margin="0,140,0,0" VerticalAlignment="Top" Width="35" Source="/Images/redX.png" Visibility="Visible"/>
+                <Button x:Name="openComButton" Content="Open File" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top" Width="71"  Click="openComButton_Click"/>
+                <Image x:Name="comTextImageX" HorizontalAlignment="Left" Height="32" Margin="10,140,0,0" VerticalAlignment="Top" Width="35" Source="/Images/redX.png" Visibility="Visible"/>
                 <Image x:Name="comTextImageV" HorizontalAlignment="Left" Height="32" Margin="20,140,0,0" VerticalAlignment="Top" Width="35" Source="/Images/greenV.png" Visibility="Hidden"/>
-                <Label x:Name="comTextWordsCount"  HorizontalAlignment="Left" Margin="122,146,0,0" VerticalAlignment="Top" Width="126"/>
-                <Label x:Name="comTextLoadedStatus"  HorizontalAlignment="Left" Margin="43,146,0,0" VerticalAlignment="Top" Width="74" />
-                <Button x:Name="comTextUnload" Content="Clear" HorizontalAlignment="Left" Margin="80,113,0,0" VerticalAlignment="Top" Width="66" Click="comTextUnload_Click"/>
+                <Label x:Name="comTextWordsCount"  HorizontalAlignment="Left" Margin="134,146,0,0" VerticalAlignment="Top" Width="126"/>
+                <Label x:Name="comTextLoadedStatus"  HorizontalAlignment="Left" Margin="55,146,0,0" VerticalAlignment="Top" Width="74" />
+                <Button x:Name="comTextUnload" Content="Clear" HorizontalAlignment="Left" Margin="96,113,0,0" VerticalAlignment="Top" Width="66" Click="comTextUnload_Click"/>
             </Grid>
 
         </Border>
+        <Grid x:Name="lowerGrid" HorizontalAlignment="Left" Height="139" Margin="0,181,0,0" VerticalAlignment="Top" Width="540">
+            <CheckBox x:Name="intersectionOptionCheckbox" Content="Include Intersect" HorizontalAlignment="Left" Margin="166,6,0,0" VerticalAlignment="Top" Width="142" IsChecked="False" Checked="intersectionOptionCheckbox_Checked" Unchecked="intersectionOptionCheckbox_Unchecked"/>
+            <Button x:Name="compareButton" Content="Compare" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="142" Click="compareButton_Click" IsEnabled="False"/>
+            <Label x:Name="coparisonLabel" Content="Label" HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Width="530" Height="80"/>
+            <Label Content="Equal: " HorizontalAlignment="Left" Margin="283,1,0,0" VerticalAlignment="Top" Width="47"/>
+            <Label x:Name="percents"  HorizontalAlignment="Left" Margin="330,10,0,0" VerticalAlignment="Top" Width="89"/>
+
+        </Grid>
 
 
 
