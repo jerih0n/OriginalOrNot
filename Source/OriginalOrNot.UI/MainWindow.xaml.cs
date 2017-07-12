@@ -85,9 +85,15 @@
                 this.refTextLoadedStatus.Content = _loaded;
                 this.refTextWordsCount.Content = $"Total words: {wordsCount}";
             }
-            
         }
-
-       
+        private void refTextUnload_Click(object sender, RoutedEventArgs e)
+        {
+            this._engine.UnloadReferentText();
+            this.refTextLoadedStatus.Content = _notLoaded;
+            this._isReferentFileLoaded = false;
+            this.refTextImageV.Visibility = Visibility.Hidden;
+            this.refTextImageX.Visibility = Visibility.Visible;
+            this.refTextWordsCount.Content = "";
+        }
     }
 }

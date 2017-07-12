@@ -82,7 +82,14 @@
             double percents = (equalWords / (double)this._totalWordsCount) * 100d;
             return percents;
         }
-        
+        public void UnloadReferentText()
+        {
+            this._internalReferentTextCollection = new ConcurrentDictionary<string, int>();
+        }
+        public void UnloadComparisonText()
+        {
+            this._comparisonWordsCollection = new string[1];
+        }
         private int CompareAndGetNumberOfEqualWord(ConcurrentDictionary<string,int> excludedWords)
         {
             int equalWords = 0;
