@@ -13,17 +13,21 @@
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="195" VerticalAlignment="Top" Width="290" Margin="-15,-14,0,0">
             <Grid x:Name="refSideGrid" HorizontalAlignment="Left" Height="182" Margin="19,12,-1,-1" VerticalAlignment="Top" Width="270">
                 <Label x:Name="refFileText" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="245"/>
-                <ComboBox HorizontalAlignment="Left" Margin="158,113,0,0" VerticalAlignment="Top" Width="97" SelectionChanged="ComboBox_SelectionChanged">
-                    <ComboBoxItem x:Name="TxtFile" IsSelected="True">.txt File</ComboBoxItem>
-                    <ComboBoxItem x:Name="DocxFile">.docx File</ComboBoxItem>
+                <ComboBox  x:Name="refFilesComboBox" HorizontalAlignment="Left" Margin="163,113,0,0" VerticalAlignment="Top" Width="97" SelectionChanged="refFilesComboBox_SelectionChanged">
+                    <ComboBoxItem x:Name="TxtFileRef" IsSelected="True" Content=".txt File"></ComboBoxItem>
+                    <ComboBoxItem x:Name="DocxFileRef" Content=".docx File"></ComboBoxItem>
                 </ComboBox>
-                <Button x:Name="openRefButton" Content="Open File" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top" Width="92" Click="openRefButton_Click" />
+                <Button x:Name="openRefButton" Content="Open File" HorizontalAlignment="Left" Margin="0,113,0,0" VerticalAlignment="Top" Width="71" Click="openRefButton_Click" />
+                <Image x:Name="refTextImageX" HorizontalAlignment="Left" Height="32" Margin="10,140,0,0" VerticalAlignment="Top" Width="35" Source="/Images/redX.png" Visibility="Visible"/>
+                <Image x:Name="refTextImageV" HorizontalAlignment="Left" Height="32" Margin="20,140,0,0" VerticalAlignment="Top" Width="35" Source="/Images/greenV.png" Visibility="Hidden"/>
+                <Label x:Name="refTextWordsCount"  HorizontalAlignment="Left" Margin="129,146,0,0" VerticalAlignment="Top" Width="131"/>
+                <Label x:Name="refTextLoadedStatus"  HorizontalAlignment="Left" Margin="50,146,0,0" VerticalAlignment="Top" Width="74" />
             </Grid>
         </Border>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="195" VerticalAlignment="Top" Width="291" Margin="275,-14,-16,0">
             <Label x:Name="comparisonText"  HorizontalAlignment="Left" Margin="-1,9,0,0" VerticalAlignment="Top" Width="245" />
         </Border>
-        
+
 
 
 

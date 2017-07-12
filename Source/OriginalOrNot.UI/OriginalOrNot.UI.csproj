@@ -109,5 +109,9 @@
       <Name>OriginalOrNot.Shared</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\greenV.png" />
+    <Resource Include="Images\redX.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

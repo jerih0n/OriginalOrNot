@@ -10,10 +10,18 @@ namespace OriginalOrNot.UI.UILoader
     using OriginalOrNot.Shared;
     public class TextTypeHelper
     {
-        
+        private Dictionary<string, FileFormat> _supportedFileFormts = new Dictionary<string, FileFormat>()
+        {
+            { ".txt File", FileFormat.TextFile },
+            { ".docx File", FileFormat.DocXFormat }
+        };
         public TextTypeHelper()
         {
 
+        }
+        public FileFormat GetFileFormat(string formatAsString)
+        {
+            return this._supportedFileFormts[formatAsString];
         }
         public string GetFileDialogFilter(FileFormat format)
         {

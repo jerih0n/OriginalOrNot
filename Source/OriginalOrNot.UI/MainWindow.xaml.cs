@@ -31,6 +31,10 @@
         private FileFormat _refFileFormat;
         private FileFormat _comparisonFileFormat;
         private TextTypeHelper _textHelper;
+        private bool _isReferentFileLoaded;
+        private bool _isComparisonFileLoaded;
+        private const string _loaded = "Loaded";
+        private const string _notLoaded = "Not Loaded";
         public MainWindow()
         {
             InitializeComponent();
@@ -45,27 +49,45 @@
             this._textHelper = new TextTypeHelper();
             //Default the file type is txt
             this._refFileFormat = FileFormat.TextFile;
-            this._comparisonFileFormat = FileFormat.TextFile; 
+            this._comparisonFileFormat = FileFormat.TextFile;
+            this._isComparisonFileLoaded = false;
+            this._isReferentFileLoaded = false;
+            this.refTextLoadedStatus.Content = _notLoaded;
         }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void refFilesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            var combboBox = sender as ComboBox;
+            var selectedIted = combboBox.SelectedValue as ComboBoxItem;
+            var value = selectedIted.Content;
+            if(value != null)
+            {
+                this._refFileFormat = this._textHelper.GetFileFormat(value.ToString());
+            }
             
         }
+       
 
         private void openRefButton_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new OpenFileDialog();
             var filer = this._textHelper.GetFileDialogFilter(this._refFileFormat);
             dialog.Filter = filer;
-            
             dialog.ShowDialog();
             var filePath = dialog.FileName;
             if(filePath != null && filePath != string.Empty)
             {
                 var wordsCount = this._engine.LoadReferentText(filePath, this._refFileFormat);
+                //after loading making the UI changes
+                this._isReferentFileLoaded = true;
+                //make red Invisible
+                this.refTextImageX.Visibility = Visibility.Hidden;
+                this.refTextImageV.Visibility = Visibility.Visible;
+                this.refTextLoadedStatus.Content = _loaded;
+                this.refTextWordsCount.Content = $"Total words: {wordsCount}";
             }
             
         }
+
+       
     }
 }
