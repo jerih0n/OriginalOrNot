@@ -104,6 +104,8 @@
             this.refTextImageX.Visibility = Visibility.Visible;
             this.refTextWordsCount.Content = "";
             this.compareButton.IsEnabled = false;
+            this.timeElapsed.Content = "";
+            this.percents.Content = "";
         }
 
         private void comFilesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -151,6 +153,8 @@
             this.comTextImageX.Visibility = Visibility.Visible;
             this.comTextWordsCount.Content = "";
             this.compareButton.IsEnabled = false;
+            this.timeElapsed.Content = "";
+            this.percents.Content = "";
         }
 
         private void intersectionOptionCheckbox_Checked(object sender, RoutedEventArgs e)
