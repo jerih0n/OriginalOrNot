@@ -88,6 +88,8 @@
                 this.refTextImageV.Visibility = Visibility.Visible;
                 this.refTextLoadedStatus.Content = _loaded;
                 this.refTextWordsCount.Content = $"Total words: {wordsCount}";
+                var filePathComponents = filePath.Split(new char[] { '\\' }, StringSplitOptions.RemoveEmptyEntries);
+                this.refFileName.Content = filePathComponents[filePathComponents.Length - 1];
             }
             if(this._isComparisonFileLoaded)
             {
@@ -136,6 +138,8 @@
                 this.comTextImageV.Visibility = Visibility.Visible;
                 this.comTextLoadedStatus.Content = _loaded;
                 this.comTextWordsCount.Content = $"Total words: {wordsCount}";
+                var filePathComponents = filePath.Split(new char[] { '\\' }, StringSplitOptions.RemoveEmptyEntries);
+                this.comFileName.Content = filePathComponents[filePathComponents.Length - 1];
             }
             if(this._isReferentFileLoaded)
             {
@@ -199,7 +203,10 @@
             }
             else
             {
+                watch.Start();
                 resultPercents = this._engine.CompareFiles(Shared.Language.English);
+                watch.Stop();
+                elapsedSeconds = watch.Elapsed.Milliseconds.ToString();
             }
             if (resultPercents <= 20)
             {
@@ -207,7 +214,7 @@
             }
             else if (resultPercents >= 20 && resultPercents <= 50)
             {
-                this.percents.Foreground = Brushes.Yellow;
+                this.percents.Foreground = Brushes.Orange;
             }
             else
             {

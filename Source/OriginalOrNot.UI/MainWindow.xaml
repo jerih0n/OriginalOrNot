@@ -24,6 +24,7 @@
                 <Label x:Name="refTextWordsCount"  HorizontalAlignment="Left" Margin="129,146,0,0" VerticalAlignment="Top" Width="131"/>
                 <Label x:Name="refTextLoadedStatus"  HorizontalAlignment="Left" Margin="50,146,0,0" VerticalAlignment="Top" Width="74" />
                 <Button x:Name="refTextUnload" Content="Clear" HorizontalAlignment="Left" Margin="82,113,0,0" VerticalAlignment="Top" Width="66" Click="refTextUnload_Click"/>
+                <Label x:Name="refFileName" HorizontalAlignment="Left" Margin="0,87,0,0" VerticalAlignment="Top" Width="260"/>
             </Grid>
 
 
@@ -42,6 +43,7 @@
                 <Label x:Name="comTextWordsCount"  HorizontalAlignment="Left" Margin="134,146,0,0" VerticalAlignment="Top" Width="126"/>
                 <Label x:Name="comTextLoadedStatus"  HorizontalAlignment="Left" Margin="55,146,0,0" VerticalAlignment="Top" Width="74" />
                 <Button x:Name="comTextUnload" Content="Clear" HorizontalAlignment="Left" Margin="96,113,0,0" VerticalAlignment="Top" Width="66" Click="comTextUnload_Click"/>
+                <Label x:Name="comFileName" HorizontalAlignment="Left" Margin="3,87,0,0" VerticalAlignment="Top" Width="257"/>
             </Grid>
 
         </Border>
@@ -64,11 +66,8 @@
                 </Hyperlink>
             </TextBlock>
             <Label  x:Name="timeElapsed" HorizontalAlignment="Left" Margin="389,0,0,0" VerticalAlignment="Top" Width="129" Height="26" RenderTransformOrigin="0.605,0.474"/>
-
-
-
-
         </Grid>
+
     </Grid>
 </Window>
 
