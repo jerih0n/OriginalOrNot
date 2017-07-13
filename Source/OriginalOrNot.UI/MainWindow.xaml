@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OriginalOrNot.UI"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="Original or Not" 
         Height="350" Width="550" MinHeight="350" MaxHeight="350"
         MinWidth="550" MaxWidth="550"
         Loaded="Window_Loaded">
@@ -16,6 +16,7 @@
                 <ComboBox  x:Name="refFilesComboBox" HorizontalAlignment="Left" Margin="163,113,0,0" VerticalAlignment="Top" Width="73" SelectionChanged="refFilesComboBox_SelectionChanged">
                     <ComboBoxItem x:Name="TxtFileRef" IsSelected="True" Content=".txt File"></ComboBoxItem>
                     <ComboBoxItem x:Name="DocxFileRef" Content=".docx File"></ComboBoxItem>
+                    <ComboBoxItem x:Name="PdfFileRef" Content=".pdf File"></ComboBoxItem>
                 </ComboBox>
                 <Button x:Name="openRefButton" Content="Open File" HorizontalAlignment="Left" Margin="0,113,0,0" VerticalAlignment="Top" Width="71" Click="openRefButton_Click" />
                 <Image x:Name="refTextImageX" HorizontalAlignment="Left" Height="32" Margin="10,140,0,0" VerticalAlignment="Top" Width="35" Source="/Images/redX.png" Visibility="Visible"/>
@@ -33,6 +34,7 @@
                 <ComboBox  x:Name="comFilesComboBox" HorizontalAlignment="Left" Margin="181,113,0,0" VerticalAlignment="Top" Width="73" SelectionChanged="comFilesComboBox_SelectionChanged">
                     <ComboBoxItem x:Name="TxtFileCom" IsSelected="True" Content=".txt File"></ComboBoxItem>
                     <ComboBoxItem x:Name="DocxFileCom" Content=".docx File"></ComboBoxItem>
+                    <ComboBoxItem x:Name="PdfFileCom" Content=".pdf File"></ComboBoxItem>
                 </ComboBox>
                 <Button x:Name="openComButton" Content="Open File" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top" Width="71"  Click="openComButton_Click"/>
                 <Image x:Name="comTextImageX" HorizontalAlignment="Left" Height="32" Margin="10,140,0,0" VerticalAlignment="Top" Width="35" Source="/Images/redX.png" Visibility="Visible"/>
@@ -51,14 +53,6 @@
             <Label x:Name="percents"  HorizontalAlignment="Left" Margin="322,1,0,0" VerticalAlignment="Top" Width="62"/>
             <Label Content="Author: Dimitur Botev" HorizontalAlignment="Left" Margin="0,107,0,0" VerticalAlignment="Top" Width="129"/>
             <TextBlock HorizontalAlignment="Left" Margin="126,110,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="17" Width="57">
-                <TextBlock.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="-0.283"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </TextBlock.RenderTransform>
                 <Hyperlink NavigateUri="https://www.linkedin.com/in/dimitur-botev-32919a119/" RequestNavigate="Hyperlink_RequestNavigate" FontSize="14" TextDecorations="">
                     LinkedIn
                 </Hyperlink>

@@ -13,7 +13,8 @@ namespace OriginalOrNot.UI.UILoader
         private Dictionary<string, FileFormat> _supportedFileFormts = new Dictionary<string, FileFormat>()
         {
             { ".txt File", FileFormat.TextFile },
-            { ".docx File", FileFormat.DocXFormat }
+            { ".docx File", FileFormat.DocXFormat },
+            { ".pdf File", FileFormat.PdfFormat }
         };
         public TextTypeHelper()
         {
@@ -32,6 +33,8 @@ namespace OriginalOrNot.UI.UILoader
 
                 case FileFormat.DocXFormat:
                     return "Word files (*.docx)|*.docx|(*.doc)|*.doc";
+                case FileFormat.PdfFormat:
+                    return "Pdf files(*.pdf)| *.pdf";
                 default:
                     return "Error";
             }

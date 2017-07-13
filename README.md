@@ -13,7 +13,7 @@ file, and easily can be located, and can prove plagiarism
 
 # Supported File types
 
-Currently the software works with .docx and .txt files
+Currently the software works with .docx and .txt and .pdf files
 
 # Pictures:
 ![pictureone](https://user-images.githubusercontent.com/17022129/28124863-893032b4-672d-11e7-91ff-13d705710391.png)

@@ -28,7 +28,8 @@
         /// </summary>
         public int LoadReferentText(string filePath,FileFormat format)
         {
-            var fileType = FileFactory.GetFileClass(format);
+            
+            var fileType = FileFactory.GetFileClass(format); 
             var tupleResult = fileType.LoadReferentText(filePath, _expectedConcurancyLevel);
             this._internalReferentTextCollection = tupleResult.Item1;
             this._totalWordsCount = tupleResult.Item2;
@@ -133,12 +134,10 @@
                                 wordsCountForThisParagraf++;
                                 if (wordsCountForThisParagraf >= wordsCountPerParagraph)
                                 {
-
                                     docX.InsertParagraph(sb.ToString());
                                     sb.Clear();
                                     wordsCountForThisParagraf = 0;
                                 }
-
                             }
                         }
                     }

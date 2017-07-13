@@ -13,7 +13,8 @@ namespace OriginalOrNot.FileTypesClasses
         private static Dictionary<FileFormat, ITextTypeFile> supportedFileTypes = new Dictionary<FileFormat, ITextTypeFile>()
         {
             { FileFormat.DocXFormat, new DocXFormatClass() },
-            { FileFormat.TextFile, new TxtFormatClass()}
+            { FileFormat.TextFile, new TxtFormatClass() },
+            { FileFormat.PdfFormat, new PdfFormatClass() }
         };
         public static ITextTypeFile GetFileClass(FileFormat format)
         {

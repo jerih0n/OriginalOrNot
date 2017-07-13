@@ -7,5 +7,6 @@ namespace OriginalOrNot.Shared
     {
         TextFile = 1,
         DocXFormat = 2,
+        PdfFormat = 3
     }
 }
