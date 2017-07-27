@@ -11,6 +11,7 @@
     using Novacode;
     using OriginalOrNot.Languages;
     using OriginalOrNot.FileTypesClasses;
+    using System.Drawing;
 
     public class Engine
     {
@@ -83,6 +84,17 @@
             double percents = (equalWords / (double)this._totalWordsCount) * 100d;
             return percents;
         }
+        public int FindTheDifferencesBetweenTheTwoFiles(Language language, string intersectionFilePath)
+        {
+            var lanuageFactory = new LanguageFactory();
+            var excludedWords = lanuageFactory.GetLanguage(language).GetExcludedWordsForComparison();
+            if (this._comparisonWordsCollection == null || this._internalReferentTextCollection == null)
+            {
+                throw new InvalidOperationException("One or more file is not added, and comparison cannot happened");
+            }
+            int differentWords = this.CompareAndIntersectAllDifferences(intersectionFilePath);
+            return differentWords;
+        }
         public void UnloadReferentText()
         {
             this._internalReferentTextCollection = new ConcurrentDictionary<string, int>();
@@ -117,6 +129,8 @@
             int  wordsCountForThisParagraf = 0;
             using (var docX = DocX.Create(newFilePath))
             {
+                var formating = new Formatting();
+                formating.Highlight = Highlight.red;
                 Parallel.ForEach(this._comparisonWordsCollection, word =>
                 {
                     if (this._internalReferentTextCollection.ContainsKey(word)
@@ -126,15 +140,13 @@
                         {
                             lock(docX)
                             {
-                                var lockingObject = new Object();
                                 equalWords++;
                                 this._internalReferentTextCollection[word]--;
                                 sb.Append(word);
                                 sb.Append(" ");
                                 wordsCountForThisParagraf++;
                                 if (wordsCountForThisParagraf >= wordsCountPerParagraph)
-                                {
-                                    docX.InsertParagraph(sb.ToString());
+                                {                                   
                                     sb.Clear();
                                     wordsCountForThisParagraf = 0;
                                 }
@@ -145,9 +157,56 @@
                 docX.Save();
                 return equalWords;
             }
-            
-            
-            
+        }
+        private int CompareAndIntersectAllDifferences(string newFilePath)
+        {
+            int differentWordsCount = 0;
+            newFilePath += @"\Result.docx";
+            StringBuilder sb = new StringBuilder();
+            const int wordsCountPerParagraph = 15;
+            int wordsCountForThisParagraf = 0;
+            using (var docX = DocX.Create(newFilePath))
+            {
+                var formatting = new Formatting();
+                formatting.Highlight = Highlight.red;
+                var paragraph = docX.InsertParagraph();
+                Parallel.ForEach(this._comparisonWordsCollection, word =>
+                {
+                    
+                    if (!this._internalReferentTextCollection.ContainsKey(word))
+                    {
+                        lock(docX)
+                        {
+                            differentWordsCount++;
+                            wordsCountForThisParagraf++;
+                            paragraph.InsertText(word + " ", false, formatting);
+                            if (wordsCountForThisParagraf >= wordsCountPerParagraph)
+                            {
+                                paragraph = docX.InsertParagraph();
+                            }
+                        }
+                    }
+                    else
+                    {                            
+                        lock(docX)
+                        {
+                            sb.Append(word);
+                            sb.Append(" ");
+                            wordsCountForThisParagraf++;
+                            if (wordsCountForThisParagraf >= wordsCountPerParagraph)
+                            {
+                                paragraph.InsertText(sb.ToString());
+                                sb.Clear();
+                                wordsCountForThisParagraf = 0;
+                                paragraph = docX.InsertParagraph();
+                            }
+                        }
+                    }
+                        
+                });
+                docX.Save();
+                return differentWordsCount;
+            }
         }
         
 

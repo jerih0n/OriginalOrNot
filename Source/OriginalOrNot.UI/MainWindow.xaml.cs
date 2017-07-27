@@ -185,10 +185,19 @@
                     var path = dialog.SelectedPath;
                     if(path != null && path != "")
                     {
+
+                        //watch.Start();
+                        //resultPercents = this._engine.CompareAndIntersectTheTwoTexts(Shared.Language.English, path);
+                        //watch.Stop();
+                        //elapsedSeconds = watch.Elapsed.Milliseconds.ToString();
+
+                        //just test !
                         watch.Start();
-                        resultPercents = this._engine.CompareAndIntersectTheTwoTexts(Shared.Language.English, path);
+                        resultPercents = this._engine.FindTheDifferencesBetweenTheTwoFiles(Shared.Language.English, path);
                         watch.Stop();
                         elapsedSeconds = watch.Elapsed.Milliseconds.ToString();
+
+
                     }
                     else
                     {
@@ -196,8 +205,9 @@
                         resultPercents = this._engine.CompareFiles(Shared.Language.English);
                         watch.Stop();
                         elapsedSeconds = watch.Elapsed.Milliseconds.ToString();
+                        elapsedSeconds = watch.Elapsed.Milliseconds.ToString();
                     }
-                    
+
                 }
 
             }
