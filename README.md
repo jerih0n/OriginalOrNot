@@ -11,11 +11,15 @@ feature of Intersection - creating a new file in .docx format with all of the wo
 text files. If there are equal sentences, paragraphs, and even entire parts, they will appear in the newly created 
 file, and easily can be located, and can prove plagiarism
 
+## Update 1: Find Differences Mode
+This update adds an additional feature to the software - the ability to compare and find the differences between two file. In this mode the intersect is mandatory, and after that, a new .docx file is created. All different words, phrases, paragraphs etc. will be highlighted in red, and can be easily located in the second document. This may come handy in comparing contracts in order to find additional clauses which are not part of the original or find any kind of change made in the comparison document
+## Important! 
+This feature should not be used to compare very different documents, like two different books, because such comparison will affect drastically the performance
+
 # Supported File types
 
 Currently the software works with .docx and .txt and .pdf files
 
 # Pictures:
-![pictureone](https://user-images.githubusercontent.com/17022129/28124863-893032b4-672d-11e7-91ff-13d705710391.png)
-![picture2](https://user-images.githubusercontent.com/17022129/28124860-88a8955c-672d-11e7-8a28-2cfa6d1e44c4.png)
+
 
