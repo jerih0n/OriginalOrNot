@@ -163,7 +163,8 @@
             int differentWordsCount = 0;
             newFilePath += @"\Result.docx";
             StringBuilder sb = new StringBuilder();
-            const int wordsCountPerParagraph = 15;
+            StringBuilder differentWordsBuilder = new StringBuilder();
+            const int wordsCountPerParagraph = 50;
             int wordsCountForThisParagraf = 0;
             using (var docX = DocX.Create(newFilePath))
             {
@@ -179,10 +180,14 @@
                         {
                             differentWordsCount++;
                             wordsCountForThisParagraf++;
-                            paragraph.InsertText(word + " ", false, formatting);
+                            differentWordsBuilder.Append(word);
+                            differentWordsBuilder.Append(" ");
                             if (wordsCountForThisParagraf >= wordsCountPerParagraph)
                             {
+                                paragraph.InsertText(differentWordsBuilder.ToString(), false, formatting);
                                 paragraph = docX.InsertParagraph();
+                                wordsCountForThisParagraf = 0;
+                                differentWordsBuilder.Clear();
                             }
                         }
                     }
@@ -190,6 +195,11 @@
                     {                            
                         lock(docX)
                         {
+                            if(differentWordsBuilder.Length > 0)
+                            {
+                                paragraph.InsertText(differentWordsBuilder.ToString(), false, formatting);
+                                differentWordsBuilder.Clear();
+                            }
                             sb.Append(word);
                             sb.Append(" ");
                             wordsCountForThisParagraf++;
