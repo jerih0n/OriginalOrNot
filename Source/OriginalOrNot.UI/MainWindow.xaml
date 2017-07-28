@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:OriginalOrNot.UI"
         mc:Ignorable="d"
         Title="Original or Not" 
-        Height="350" Width="550" MinHeight="350" MaxHeight="350"
-        MinWidth="550" MaxWidth="550"
+        Height="342" Width="592.667" MinHeight="350" MaxHeight="350"
+        MinWidth="600" MaxWidth="600"
         Loaded="Window_Loaded">
-    <Grid HorizontalAlignment="Left" Height="320" VerticalAlignment="Top" Width="550">
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="195" VerticalAlignment="Top" Width="290" Margin="-15,-14,0,0">
+    <Grid HorizontalAlignment="Left" Height="320" VerticalAlignment="Top" Width="590">
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="195" VerticalAlignment="Top" Width="288" Margin="-13,-14,0,0">
             <Grid x:Name="refSideGrid" HorizontalAlignment="Left" Height="182" Margin="19,12,-1,-1" VerticalAlignment="Top" Width="270">
                 <Label x:Name="refFileText" HorizontalAlignment="Left" VerticalAlignment="Top" Width="245"/>
                 <ComboBox  x:Name="refFilesComboBox" HorizontalAlignment="Left" Margin="163,113,0,0" VerticalAlignment="Top" Width="73" SelectionChanged="refFilesComboBox_SelectionChanged">
@@ -29,8 +29,8 @@
 
 
         </Border>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="195" VerticalAlignment="Top" Width="291" Margin="275,-14,-16,0">
-            <Grid x:Name="comparisonGrid" HorizontalAlignment="Left" Height="182" Margin="-1,12,0,-1" VerticalAlignment="Top" Width="270">
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="195" VerticalAlignment="Top" Width="316" Margin="275,-14,-41,0">
+            <Grid x:Name="comparisonGrid" HorizontalAlignment="Left" Height="182" Margin="-1,12,-1,-1" VerticalAlignment="Top" Width="316">
                 <Label x:Name="comparisonText"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="245" Margin="3,0,0,0" />
                 <ComboBox  x:Name="comFilesComboBox" HorizontalAlignment="Left" Margin="181,113,0,0" VerticalAlignment="Top" Width="73" SelectionChanged="comFilesComboBox_SelectionChanged">
                     <ComboBoxItem x:Name="TxtFileCom" IsSelected="True" Content=".txt File"></ComboBoxItem>
@@ -47,11 +47,11 @@
             </Grid>
 
         </Border>
-        <Grid x:Name="lowerGrid" HorizontalAlignment="Left" Height="139" Margin="0,181,0,0" VerticalAlignment="Top" Width="540">
-            <CheckBox x:Name="intersectionOptionCheckbox" Content="Include Intersect" HorizontalAlignment="Left" Margin="166,6,0,0" VerticalAlignment="Top" Width="142" IsChecked="False" Checked="intersectionOptionCheckbox_Checked" Unchecked="intersectionOptionCheckbox_Unchecked"/>
-            <Button x:Name="compareButton" Content="Compare" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="142" Click="compareButton_Click" IsEnabled="False"/>
-            <Label x:Name="coparisonLabel"  HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Width="530" Height="80"/>
-            <Label Content="Equal: " HorizontalAlignment="Left" Margin="283,1,0,0" VerticalAlignment="Top" Width="47"/>
+        <Grid x:Name="lowerGrid" HorizontalAlignment="Left" Height="139" Margin="0,181,0,0" VerticalAlignment="Top" Width="590">
+            <CheckBox x:Name="intersectionOptionCheckbox" Content="Include Intersect" HorizontalAlignment="Left" Margin="275,3,0,0" VerticalAlignment="Top" Width="124" IsChecked="False" Checked="intersectionOptionCheckbox_Checked" Unchecked="intersectionOptionCheckbox_Unchecked"/>
+            <Button x:Name="compareButton" Content="Compare" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="125" Click="compareButton_Click" IsEnabled="False"/>
+            <Label x:Name="coparisonLabel"  HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Width="560" Height="80"/>
+            <Label Content="Equal: " HorizontalAlignment="Left" Margin="399,-2,0,0" VerticalAlignment="Top" Width="47"/>
             <Label x:Name="percents"  HorizontalAlignment="Left" Margin="322,1,0,0" VerticalAlignment="Top" Width="62"/>
             <Label Content="Author: Dimitur Botev" HorizontalAlignment="Left" Margin="0,107,0,0" VerticalAlignment="Top" Width="129"/>
             <TextBlock HorizontalAlignment="Left" Margin="126,110,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="17" Width="57">
@@ -59,15 +59,18 @@
                     LinkedIn
                 </Hyperlink>
             </TextBlock>
-            <Label Content="Project source code: " HorizontalAlignment="Left" Margin="284,107,0,0" VerticalAlignment="Top" Width="127"/>
-            <TextBlock HorizontalAlignment="Left" Margin="401,110,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="71"  >
+            <Label Content="Project source code: " HorizontalAlignment="Left" Margin="354,107,0,0" VerticalAlignment="Top" Width="127"/>
+            <TextBlock HorizontalAlignment="Left" Margin="492,110,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="71"  >
                 <Hyperlink NavigateUri="https://github.com/jerih0n/OriginalOrNot" RequestNavigate="Hyperlink_RequestNavigate_1" TextDecorations="" FontSize="14">
                     Here
                 </Hyperlink>
             </TextBlock>
-            <Label  x:Name="timeElapsed" HorizontalAlignment="Left" Margin="389,0,0,0" VerticalAlignment="Top" Width="129" Height="26" RenderTransformOrigin="0.605,0.474"/>
+            <Label  x:Name="timeElapsed" HorizontalAlignment="Left" Margin="461,0,0,0" VerticalAlignment="Top" Width="129" Height="26" RenderTransformOrigin="0.605,0.474"/>
+            <ComboBox x:Name="ComparisonMode" HorizontalAlignment="Left" Margin="140,0,0,0" VerticalAlignment="Top" Width="130" SelectionChanged="ComparisonMode_SelectionChanged">
+                <ComboBoxItem x:Name="EqualMode" Content="Equal Words"></ComboBoxItem>
+                <ComboBoxItem x:Name="DifferentWord" Content="Different Words"></ComboBoxItem>
+            </ComboBox>
         </Grid>
-
     </Grid>
 </Window>
 

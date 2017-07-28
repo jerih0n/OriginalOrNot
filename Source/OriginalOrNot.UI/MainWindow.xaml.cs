@@ -36,6 +36,7 @@
         private const string _loaded = "Loaded";
         private const string _notLoaded = "Not Loaded";
         private bool _shouldPerformIntersect;
+        private ComparisonMode _mode;
         public MainWindow()
         {
             InitializeComponent();
@@ -57,6 +58,7 @@
             this.refTextLoadedStatus.Content = _notLoaded;
             this.comTextLoadedStatus.Content = _notLoaded;
             this._shouldPerformIntersect = false;
+            this._mode = Shared.ComparisonMode.EqualWords;
         }
         private void refFilesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -185,7 +187,6 @@
                     var path = dialog.SelectedPath;
                     if(path != null && path != "")
                     {
-
                         //watch.Start();
                         //resultPercents = this._engine.CompareAndIntersectTheTwoTexts(Shared.Language.English, path);
                         //watch.Stop();
@@ -196,7 +197,6 @@
                         resultPercents = this._engine.FindTheDifferencesBetweenTheTwoFiles(Shared.Language.English, path);
                         watch.Stop();
                         elapsedSeconds = watch.Elapsed.Milliseconds.ToString();
-
 
                     }
                     else
@@ -244,6 +244,26 @@
         {
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
+        }
+
+        private void ComparisonMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var boxSender = sender as ComboBox;
+            var selectedValue = boxSender.SelectedValue as ComboBoxItem;
+            if(selectedValue.Content.ToString() == "Equal Words")
+            {
+                this._mode = Shared.ComparisonMode.EqualWords;
+                this._loader.LoadComparisonExplanationLaber(this.coparisonLabel);
+                this.intersectionOptionCheckbox.IsEnabled = true;
+            }
+            else
+            {
+                this._mode = Shared.ComparisonMode.DifferentWords;
+                // need to change the label of dicription 
+                this._loader.LoadComparisonExplanationForDifferenceModeLabel(this.coparisonLabel);
+                this.intersectionOptionCheckbox.IsEnabled = false;
+
+            }
         }
     }
 }

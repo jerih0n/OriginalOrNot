@@ -211,8 +211,7 @@
                                 paragraph = docX.InsertParagraph();
                             }
                         }
-                    }
-                        
+                    }        
                 });
                 docX.Save();
                 return differentWordsCount;
