@@ -179,59 +179,56 @@
             double resultPercents = 0;
             Stopwatch watch = new Stopwatch();
             string elapsedSeconds = string.Empty;
-            if (this._shouldPerformIntersect)
+            if(this._mode == Shared.ComparisonMode.EqualWords)
             {
+                if(this._shouldPerformIntersect)
+                {
+                    using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+                    {
+                        dialog.ShowDialog();
+                        var path = dialog.SelectedPath;
+                        watch.Start();
+                        resultPercents = this.PerformEqualComparisonWithIntersect(path);
+                        watch.Stop();
+                        elapsedSeconds = watch.Elapsed.Milliseconds.ToString();
+                    }
+                }
+                else
+                {
+                    watch.Start();
+                    resultPercents = this.PerformEqualComparisonWithoutIntersect();
+                    watch.Stop();
+                }
+                if (resultPercents <= 20)
+                {
+                    this.percents.Foreground = Brushes.Green;
+                }
+                else if (resultPercents >= 20 && resultPercents <= 50)
+                {
+                    this.percents.Foreground = Brushes.Orange;
+                }
+                else
+                {
+                    this.percents.Foreground = Brushes.Red;
+                }
+                this.percents.Content = string.Format("{0:0.00} %", resultPercents);
+                
+            }
+            else
+            {
+                int differentWordsCount = 0;
                 using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
                 {
                     dialog.ShowDialog();
-                    
                     var path = dialog.SelectedPath;
-                    if(path != null && path != "")
-                    {
-                        //watch.Start();
-                        //resultPercents = this._engine.CompareAndIntersectTheTwoTexts(Shared.Language.English, path);
-                        //watch.Stop();
-                        //elapsedSeconds = watch.Elapsed.Milliseconds.ToString();
-
-                        //just test !
-                        watch.Start();
-                        resultPercents = this._engine.FindTheDifferencesBetweenTheTwoFiles(Shared.Language.English, path);
-                        watch.Stop();
-                        elapsedSeconds = watch.Elapsed.Milliseconds.ToString();
-
-                    }
-                    else
-                    {
-                        watch.Start();
-                        resultPercents = this._engine.CompareFiles(Shared.Language.English);
-                        watch.Stop();
-                        elapsedSeconds = watch.Elapsed.Milliseconds.ToString();
-                        elapsedSeconds = watch.Elapsed.Milliseconds.ToString();
-                    }
-
+                    watch.Start();
+                    differentWordsCount = this.PerformDifferenceComparison(path);
+                    this.percents.Content = string.Format("{0} different words", differentWordsCount);
+                    watch.Stop();
+                    elapsedSeconds = watch.Elapsed.Milliseconds.ToString();
                 }
 
             }
-            else
-            {
-                watch.Start();
-                resultPercents = this._engine.CompareFiles(Shared.Language.English);
-                watch.Stop();
-                elapsedSeconds = watch.Elapsed.Milliseconds.ToString();
-            }
-            if (resultPercents <= 20)
-            {
-                this.percents.Foreground = Brushes.Green;
-            }
-            else if (resultPercents >= 20 && resultPercents <= 50)
-            {
-                this.percents.Foreground = Brushes.Orange;
-            }
-            else
-            {
-                this.percents.Foreground = Brushes.Red;
-            }
-            this.percents.Content = string.Format("{0:0.00} %", resultPercents);
             this.timeElapsed.Content = $"Took {elapsedSeconds} milliseconds";
         }
 
@@ -266,5 +263,33 @@
 
             }
         }
+        
+        private double PerformEqualComparisonWithIntersect(string path)
+        {
+            double resultPercents = 0;
+            if (path != null && path != "")
+            { 
+                resultPercents = this._engine.CompareAndIntersectTheTwoTexts(Shared.Language.English, path);
+            }
+            else
+            {
+                resultPercents = this._engine.CompareFiles(Shared.Language.English);
+            }
+            return resultPercents;
+        }
+        private double PerformEqualComparisonWithoutIntersect()
+        {
+            double resultPercents = 0;
+            string elapsedSeconds = string.Empty;
+            resultPercents = this._engine.CompareFiles(Shared.Language.English);
+            return resultPercents;
+        }
+        private int PerformDifferenceComparison(string path)
+        {
+            int differentWords = 0;          
+            differentWords = this._engine.FindTheDifferencesBetweenTheTwoFiles(Shared.Language.English, path);
+            return differentWords;
+        }
+        
     }
 }
