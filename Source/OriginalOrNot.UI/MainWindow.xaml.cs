@@ -59,6 +59,7 @@
             this.comTextLoadedStatus.Content = _notLoaded;
             this._shouldPerformIntersect = false;
             this._mode = Shared.ComparisonMode.EqualWords;
+            this.ComparisonMode.SelectedIndex = 1;
         }
         private void refFilesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

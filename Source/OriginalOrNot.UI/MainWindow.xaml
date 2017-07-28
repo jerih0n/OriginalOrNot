@@ -67,8 +67,8 @@
             </TextBlock>
             <Label  x:Name="timeElapsed" HorizontalAlignment="Left" Margin="461,0,0,0" VerticalAlignment="Top" Width="129" Height="26" RenderTransformOrigin="0.605,0.474"/>
             <ComboBox x:Name="ComparisonMode" HorizontalAlignment="Left" Margin="140,0,0,0" VerticalAlignment="Top" Width="130" SelectionChanged="ComparisonMode_SelectionChanged">
+                <ComboBoxItem x:Name="DifferentWordMode" Content="Different Words"></ComboBoxItem>
                 <ComboBoxItem x:Name="EqualMode" Content="Equal Words"></ComboBoxItem>
-                <ComboBoxItem x:Name="DifferentWord" Content="Different Words"></ComboBoxItem>
             </ComboBox>
         </Grid>
     </Grid>
