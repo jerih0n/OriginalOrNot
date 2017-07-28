@@ -21,5 +21,7 @@ This feature should not be used to compare very different documents, like two di
 Currently the software works with .docx and .txt and .pdf files
 
 # Pictures:
-
-
+![new_pic_2](https://user-images.githubusercontent.com/17022129/28713563-2741bcf4-7398-11e7-844a-5572072c4c59.png)
+![new_pic_3](https://user-images.githubusercontent.com/17022129/28713564-274a1cd2-7398-11e7-9952-44d3495d0c01.png)
+![new_picture_4](https://user-images.githubusercontent.com/17022129/28713561-272e1280-7398-11e7-9018-f0a13f637571.png)
+![new_pic_1](https://user-images.githubusercontent.com/17022129/28713562-27363578-7398-11e7-8853-c77f31727f3e.png)
