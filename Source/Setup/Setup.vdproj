@@ -732,9 +732,9 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:Setup"
+        "ProductName" = "8:Original Or Not"
         "ProductCode" = "8:{566C3DA0-B542-4A30-8FDD-0C2A7F4DDA0B}"
-        "PackageCode" = "8:{99F196F5-1BE9-4270-979F-1D935A63BC92}"
+        "PackageCode" = "8:{4975BE93-C318-4939-9241-79C257C4D2FA}"
         "UpgradeCode" = "8:{AC172AE2-E59D-4A9F-B624-895CBE937940}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -751,8 +751,8 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:Text Comparison Software"
         "ARPURLINFOABOUT" = "8:https://github.com/jerih0n/OriginalOrNot"
-        "ARPPRODUCTICON" = "8:"
-        "ARPIconIndex" = "3:0"
+        "ARPPRODUCTICON" = "8:_30284C7DF2754387B5D3DCB16F8BB6B9"
+        "ARPIconIndex" = "3:32512"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
         "TargetPlatform" = "3:0"
@@ -854,18 +854,32 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_8DFD88F71AA6464499DE70A7E780688E"
+            {
+            "Name" = "8:Original Or not"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:32512"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_30284C7DF2754387B5D3DCB16F8BB6B9"
+            "Folder" = "8:_68F8FBB2EB9F44FE95264818276A8F4F"
+            "WorkingFolder" = "8:_DD877764EE6E486E8821439CEFDC8408"
+            "Icon" = "8:_30284C7DF2754387B5D3DCB16F8BB6B9"
+            "Feature" = "8:"
+            }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_9CE1B95AE6184135B3CF922B3953D60B"
             {
             "Name" = "8:Original Or Not"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
+            "IconIndex" = "3:32512"
             "Transitive" = "11:FALSE"
             "Target" = "8:_30284C7DF2754387B5D3DCB16F8BB6B9"
             "Folder" = "8:_46B077E0DE924F089F1DEB652D99E8CA"
             "WorkingFolder" = "8:_DD877764EE6E486E8821439CEFDC8408"
-            "Icon" = "8:"
+            "Icon" = "8:_30284C7DF2754387B5D3DCB16F8BB6B9"
             "Feature" = "8:"
             }
         }
