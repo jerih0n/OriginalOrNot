@@ -734,7 +734,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Original Or Not"
         "ProductCode" = "8:{566C3DA0-B542-4A30-8FDD-0C2A7F4DDA0B}"
-        "PackageCode" = "8:{4975BE93-C318-4939-9241-79C257C4D2FA}"
+        "PackageCode" = "8:{2F98AA2B-A2E3-44A5-B693-EE4BD9FC3407}"
         "UpgradeCode" = "8:{AC172AE2-E59D-4A9F-B624-895CBE937940}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -856,7 +856,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_8DFD88F71AA6464499DE70A7E780688E"
             {
-            "Name" = "8:Original Or not"
+            "Name" = "8:Original Or Not"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
