@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OriginalOrNot.Languages", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OriginalOrNot.FileTypesClasses", "OriginalOrNot.FileTypesClasses\OriginalOrNot.FileTypesClasses.csproj", "{E12F76F4-F3C1-4B21-9C93-722FE7281F59}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Installer", "Installer", "{A5377781-49F8-463F-99D0-CA7F757F89A0}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{78C0A041-9BC6-43B2-A6AD-A10106F81D00}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +57,8 @@ Global
 		{E12F76F4-F3C1-4B21-9C93-722FE7281F59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E12F76F4-F3C1-4B21-9C93-722FE7281F59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E12F76F4-F3C1-4B21-9C93-722FE7281F59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78C0A041-9BC6-43B2-A6AD-A10106F81D00}.Debug|Any CPU.ActiveCfg = Debug
+		{78C0A041-9BC6-43B2-A6AD-A10106F81D00}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,5 +70,6 @@ Global
 		{79BB7D27-BEC1-4D8E-B87E-0F36047E433A} = {78E289AD-BE54-47FB-9EE3-4395C3AB2EF0}
 		{83A1C13E-774C-4F79-BA15-3F61F619F033} = {B32E06BB-3403-4D6E-8E9D-72096A3492A1}
 		{E12F76F4-F3C1-4B21-9C93-722FE7281F59} = {B32E06BB-3403-4D6E-8E9D-72096A3492A1}
+		{78C0A041-9BC6-43B2-A6AD-A10106F81D00} = {A5377781-49F8-463F-99D0-CA7F757F89A0}
 	EndGlobalSection
 EndGlobal
